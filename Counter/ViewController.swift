@@ -7,44 +7,26 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
+final class ViewController: UIViewController {
+
     private var count: Int = 0
     
-    @IBOutlet weak var labelCountDisplay: UILabel!
+    @IBOutlet private weak var labelCountDisplay: UILabel!
     
-    @IBOutlet weak var buttonSubstract: UIButton!
+    @IBOutlet private weak var buttonSubstract: UIButton!
     
-    @IBOutlet weak var buttonAdd: UIButton!
+    @IBOutlet private weak var buttonAdd: UIButton!
     
-    @IBOutlet weak var buttonClear: UIButton!
+    @IBOutlet private weak var buttonClear: UIButton!
     
-    @IBOutlet weak var textViewHistory: UITextView!
+    @IBOutlet private weak var textViewHistory: UITextView!
     
-    @IBAction func subtractOne() {
-        count -= 1
-        if count < 0 {
-            count = 0
-            historyPrint("\(timeNow()): попытка уменьшить значение счётчика ниже 0")
-        } else {
-            historyPrint("\(timeNow()): значение изменено на -1")
-        }
-        updateCountDisplay()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        textViewHistory.text += "История изменений:"
     }
-    
-    @IBAction func addOne() {
-        count += 1
-        historyPrint("\(timeNow()): значение изменено на +1")
-        updateCountDisplay()
-    }
-        
-    @IBAction func resetCount() {
-        count = 0
-        historyPrint("\(timeNow()): значение сброшено")
 
-        updateCountDisplay()
-    }
-    
     // обновление счетчика
     private func updateCountDisplay() {
         labelCountDisplay.text = "Значение счётчика: \(count)"
@@ -73,12 +55,29 @@ class ViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        textViewHistory.text += "История изменений:"
+    @IBAction private func subtractOne() {
+        count -= 1
+        if count < 0 {
+            count = 0
+            historyPrint("\(timeNow()): попытка уменьшить значение счётчика ниже 0")
+        } else {
+            historyPrint("\(timeNow()): значение изменено на -1")
+        }
+        updateCountDisplay()
     }
+    
+    @IBAction private func addOne() {
+        count += 1
+        historyPrint("\(timeNow()): значение изменено на +1")
+        updateCountDisplay()
+    }
+        
+    @IBAction private func resetCount() {
+        count = 0
+        historyPrint("\(timeNow()): значение сброшено")
 
+        updateCountDisplay()
+    }
 
 }
 
